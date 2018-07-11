@@ -1,4 +1,4 @@
-package com.test.zmy.stream;
+package com.test.stream;
 
 import java.io.*;
 
