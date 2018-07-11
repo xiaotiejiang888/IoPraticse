@@ -2,6 +2,17 @@ package com.test.serializable;
 
 import java.io.*;
 
+/**
+ * 1、静态变量不会被序列化。
+ *
+ * 2、子类序列化时：
+ *
+ *      如果父类没有实现Serializable接口，没有提供默认构造函数，那么子类的序列化会出错；
+ *
+ *      如果父类没有实现Serializable接口，提供了默认的构造函数，那么子类可以序列化，父类的成员变量不会被序列化。
+ *
+ *      如果父类实现了Serializable接口，则父类和子类都可以序列化。
+ */
 public class SerializableTest {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("d:/data.txt"));
