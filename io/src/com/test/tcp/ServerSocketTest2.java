@@ -1,4 +1,4 @@
-package com.test.socket;
+package com.test.tcp;
 
 import java.io.IOException;
 import java.io.PrintStream;
