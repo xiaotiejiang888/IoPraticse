@@ -1,0 +1,23 @@
+Channel就是一个通道，用于传输数据，两端分别是缓冲区和实体（文件或者套接字），通道的特点（也是NIO的特点）：通道中的数据总是要先读到一个缓冲区，或者总是要从一个缓冲区中读入。
+
+Channel的分类
+1) FileChannel：从文件中读写数据
+
+2) SocketChannel：通过TCP协议读写网络中的数据
+
+3) ServerSocketChannel：在服务器端可以监听新进来的TCP连接，像WEB服务器那样，对每一个新进来的请求创建一个SocketChannel
+
+4) DatagramChannel：通过UDP协议读写网络中的数据
+
+上面众多的分类，是对应了不同的实体，这些通道包括了文件IO、TCP和UDP网络IO。
+
+Channel的获取
+IO在广义上可以分为：文件IO和网络IO。文件IO对应的通道为FileChannel，而网络IO对应的通道则有三个：SocketChannel、ServerSoketChannel和DatagramChannel。
+
+一、文件通道
+
+FileChannel对象不能直接创建，只能通过FileInputStream、OutputStream、RandomAccessFile对象的getChannel()来获取，如：
+
+FileInputStream fis = new FileInputStream("c:/in.txt");
+FileChannel fic = fis.getChannel();
+ FileChannel无法设置为非阻塞模式，它总是运行在阻塞模式下。
