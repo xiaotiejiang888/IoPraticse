@@ -20,6 +20,7 @@ public class SimPleServer {
             writer.println("hello world");
             writer.println("</html></body>");
             writer.println();// 根据 HTTP 协议, 空行将结束头信息
+            in.close();
             writer.close();
             socket.close();//请求资源处理完毕，关闭socket链接
             continue;
