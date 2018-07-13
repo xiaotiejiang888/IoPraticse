@@ -11,7 +11,7 @@ public class ServerThread extends Thread {
         this.ss = st;
         try {
             out = new BufferedWriter(new OutputStreamWriter(st.getOutputStream()));
-            in = new BufferedReader(new InputStreamReader(st.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(System.in));
         } catch (IOException e) {
             e.printStackTrace();
         }

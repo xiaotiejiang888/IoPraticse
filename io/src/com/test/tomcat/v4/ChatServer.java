@@ -17,7 +17,9 @@ public class ChatServer {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
             while (true){
                 String s = in.readLine();
-                System.out.println("客户端说:"+s);
+                if (null != s && s.length() > 0){
+                    System.out.println("客户端说:"+s);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
