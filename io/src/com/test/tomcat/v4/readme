@@ -1,0 +1,2 @@
+该包中的ChatClient和ChatServer分别是聊天服务器的客户端和服务器端，可以在一台机器启动也可以在不同的机器分开启动
+记得修改ChatClient中的ip地址
