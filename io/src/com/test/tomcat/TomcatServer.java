@@ -38,15 +38,15 @@ public class TomcatServer {
         public void run() {
             while (true) {
                 try {
-                    Socket client = null;
-                    client = server.accept();//ServerSocket阻塞等待客户端请求数据
-                    if (client != null) {
+                    Socket socket = null;
+                    socket = server.accept();//ServerSocket阻塞等待客户端请求数据
+                    if (socket != null) {
                         try {
                             System.out.println("接收到一个客户端的请求");
 
                             //根据客户端的Socket对象获取输入流对象。
                             //封装字节流到字符流
-                            BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                             // GET /test.jpg /HTTP1.1
                             //http请求由三部分组成，分别是：请求行、消息报头、请求正文。
@@ -85,8 +85,8 @@ public class TomcatServer {
 
                                 //比如下载一个图片文件，我这里直接给定一个图片路径来模拟下载的情况
                                 if (resource.endsWith(".jpg")) {
-                                    transferFileHandle("C:/Users/Administrator/Pictures/2.jpg", client);
-                                    closeSocket(client);
+                                    transferFileHandle("C:/Users/Administrator/Pictures/2.jpg", socket);
+                                    closeSocket(socket);
                                     continue;
 
                                 } else {
@@ -95,7 +95,7 @@ public class TomcatServer {
                                     //其实就是将html的代码以字节流的形式写到IO中反馈给客户端浏览器。
                                     //浏览器会根据http报文“Content-Type”来知道反馈给浏览器的数据是什么格式的，并进行什么样的处理
 
-                                    PrintStream writer = new PrintStream(client.getOutputStream(), true);
+                                    PrintStream writer = new PrintStream(socket.getOutputStream(), true);
                                     writer.println("HTTP/1.0 200 OK");// 返回应答消息,并结束应答
                                     writer.println("Content-Type:text/html;charset=utf-8");
                                     writer.println();
@@ -109,7 +109,7 @@ public class TomcatServer {
                                     //writer.println("HTTP/1.0 404 Not found");// 返回应答消息,并结束应答
                                     writer.println();// 根据 HTTP 协议, 空行将结束头信息
                                     writer.close();
-                                    closeSocket(client);//请求资源处理完毕，关闭socket链接
+                                    closeSocket(socket);//请求资源处理完毕，关闭socket链接
                                     continue;
                                 }
                             }
@@ -136,14 +136,14 @@ public class TomcatServer {
             System.out.println(socket + "离开了HTTP服务器");
         }
 
-        private void transferFileHandle(String path, Socket client) {
+        private void transferFileHandle(String path, Socket socket) {
 
             File fileToSend = new File(path);
 
             if (fileToSend.exists() && !fileToSend.isDirectory()) {
                 try {
                     //根据Socket获取输出流对象，将访问的资源数据写入到输出流中
-                    PrintStream writer = new PrintStream(client.getOutputStream());
+                    PrintStream writer = new PrintStream(socket.getOutputStream());
                     writer.println("HTTP/1.0 200 OK");// 返回应答消息,并结束应答
                     writer.println("Content-Type:application/binary");
                     writer.println("Content-Length:" + fileToSend.length());// 返回内容字节数
