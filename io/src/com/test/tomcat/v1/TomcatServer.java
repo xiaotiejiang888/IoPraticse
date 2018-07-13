@@ -1,4 +1,4 @@
-package com.test.tomcat;
+package com.test.tomcat.v1;
 
 import java.io.*;
 import java.net.ServerSocket;
