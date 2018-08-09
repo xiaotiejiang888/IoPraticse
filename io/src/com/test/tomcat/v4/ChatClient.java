@@ -11,7 +11,7 @@ public class ChatClient {
         Socket socket = null;
         BufferedReader in = null;
         try {
-            socket = new Socket(InetAddress.getByName("192.168.0.40"), 8888);
+            socket = new Socket(InetAddress.getByName("127.0.0.1"), 8888);
             new ClientThread(socket).start();
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
             while (true){
